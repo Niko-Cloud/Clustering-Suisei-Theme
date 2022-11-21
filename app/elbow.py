@@ -20,7 +20,7 @@ def feaSel(a):
 
 def elbowVis(f1,f2):
     wcss = []
-    X = dataset.iloc[:, [int(f1), int(f2)]].values
+    X = dataset.iloc[:, [f1, f2].values
     for i in range(1, 10):
         kmeans = KMeans(n_clusters=i, init='k-means++', random_state=42)
         kmeans.fit(X)

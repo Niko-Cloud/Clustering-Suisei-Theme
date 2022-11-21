@@ -34,13 +34,13 @@ def feature():
     session['f1'] = request.form.get("feature1")
     session['f2'] = request.form.get("feature2")
 
-    f1 = request.form.get("feature1")
-    f2 = request.form.get("feature2")
+    f1 = int(request.form.get("feature1"))
+    f2 = int(request.form.get("feature2"))
 
     if ((not f1=='') and (not f2=='')):
-        elbowVis(int(f1),int(f2))
-        a = feaSel(int(f1))
-        b = feaSel(int(f2))
+        elbowVis(f1,f2)
+        a = feaSel(f1)
+        b = feaSel(f2)
         return render_template("index.html", outputfeature=f"F1: {a} \t F2: {b}")
     else:
         flash("Hoshimachi Suisei aren't features")
