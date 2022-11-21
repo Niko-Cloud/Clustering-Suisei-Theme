@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, flash, session
+from flask_ngrok import run_with_ngrok
 import pandas as pd
 import pickle
 import sklearn
@@ -9,6 +10,8 @@ from flask_toastr import Toastr
 import os
 matplotlib.use('Agg')
 app = Flask(__name__)
+
+# run_with_ngrok(app)
 app.secret_key="HoshimachiSuiseiUwU"
 
 dataset = pd.read_csv('./BankNote_Authentication.csv')
@@ -19,6 +22,13 @@ toastr = Toastr(app)
 @app.route("/", methods=["GET", "POST"])
 @app.route("/index", methods=["GET", "POST"])
 def index():
+
+    if os.path.exists("./static/assets/vis.jpg"):
+        os.remove("./static/assets/vis.jpg")
+
+    if os.path.exists("./static/assets/elbow.jpg"):
+        os.remove("./static/assets/elbow.jpg")
+
     return render_template("index.html")
 
 
@@ -29,6 +39,19 @@ def feature():
 
     f1 = request.form.get("feature1")
     f2 = request.form.get("feature2")
+
+    featureSelection = ['Variance', 'Skewness', 'Curtosis', 'Entropy']
+
+    def feaSel(a):
+        if(a==0):
+            a=featureSelection[0]
+        elif(a==1):
+            a=featureSelection[1]
+        elif(a==2):
+            a=featureSelection[2]
+        elif(a==3):
+            a=featureSelection[3]
+        return a
 
     if ((not f1=='') and (not f2=='')):
         wcss=[]
@@ -44,10 +67,12 @@ def feature():
         plt.ylabel('wcss')
         plt.savefig('./static/assets/elbow.jpg')
         plt.clf()
-        return render_template("index.html")
+        a=feaSel(int(f1))
+        b=feaSel(int(f2))
+        return render_template("index.html", outputfeature=f"F1: {a} \t F2: {b}")
     else:
         flash("Hoshimachi Suisei aren't features")
-        return render_template("index.html")
+        return render_template("index.html", outputfeature=f"No Feature Choosen")
 
 
 @app.route('/plot',methods=["GET",'POST'])
@@ -73,4 +98,4 @@ def plot():
         return render_template("index.html")
 
 if __name__ == '__main__':
-	app.run(debug=True)
+	app.run()

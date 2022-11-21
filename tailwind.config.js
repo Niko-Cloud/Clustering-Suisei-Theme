@@ -5,9 +5,6 @@ module.exports = {
   ],
   theme: {
     extend: {
-      scale: {
-        '-1': '-1'
-      }
     },
   },
   plugins: [
