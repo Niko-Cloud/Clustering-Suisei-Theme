@@ -16,6 +16,9 @@
                     scale: {
                         '-1': '-1'
                     }
+                },
+                screens:{
+                    'sm': '640px'
                 }
             }
         }
@@ -200,7 +203,7 @@
 </div>
 
 <div id="profilModal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true"
-     class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 p-4 w-full md:inset-0 h-modal md:h-full">
+     class="hidden overflow-y-auto overflow-x-hidden relative top-0 right-0 left-0 z-50 p-4 w-full md:inset-0 h-modal md:h-full mt-[-800px]">
     <div class="relative w-full max-w-fit h-full md:h-auto">
         <!-- Modal content -->
         <div class="relative bg-white rounded-lg shadow dark:bg-[#93DCE3]">
@@ -214,7 +217,7 @@
                 </button>
             </div>
             <!-- Modal body -->
-            <div class="flex space-x-4 p-3 content-center align-middle">
+            <div class="flex max-w-fit p-3 content-center mx-auto align-middle space-x-4">
                 <div class="w-[200px] p-3 h-[300px] max-w-sm bg-white border border-gray-200 rounded-lg shadow-md dark:bg-[#93DCE3] dark:border-gray-700">
                     <div class="flex flex-col items-center pb-10">
                         <img class="w-40 h-40 mb-3 rounded-full shadow-lg object-cover" src="../static/assets/sui0.gif" alt="Bonnie image"/>
