@@ -34,8 +34,8 @@ def feature():
     session['f1'] = request.form.get("feature1")
     session['f2'] = request.form.get("feature2")
 
-    f1 = int(request.form.get("feature1"))
-    f2 = int(request.form.get("feature2"))
+    int(f1) = request.form.get("feature1")
+    int(f2) = request.form.get("feature2")
 
     if (f1==-1 or f2==-1):
         flash("Hoshimachi Suisei aren't features")
