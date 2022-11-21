@@ -37,7 +37,7 @@ def feature():
     f1 = request.form.get("feature1")
     f2 = request.form.get("feature2")
 
-    if (f1==-1 or f2==-1):
+    if (f1=='-1' or f2=='-1'):
         flash("Hoshimachi Suisei aren't features")
         return render_template("index.html", outputfeature=f"No Feature Choosen")
 
