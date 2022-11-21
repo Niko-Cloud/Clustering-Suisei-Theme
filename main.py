@@ -11,6 +11,32 @@ matplotlib.use('Agg')
 
 app = Flask(__name__)
 
+def elbowvis(f1,f2):
+        wcss=[]
+        X= dataset.iloc[:, [int(f1),int(f2)]].values
+        for i in range(1,10):
+            kmeans = KMeans(n_clusters= i, init='k-means++', random_state=42)
+            kmeans.fit(X)
+            wcss.append(kmeans.inertia_)
+
+        plt.plot(range(1,10), wcss)
+        plt.title('The Elbow Method')
+        plt.xlabel('no of clusters')
+        plt.ylabel('wcss')
+        plt.savefig('./static/assets/elbow.jpg')
+        plt.clf()
+
+def feaSel(a):
+    if(a==0):
+        a=featureSelection[0]
+    elif(a==1):
+        a=featureSelection[1]
+    elif(a==2):
+        a=featureSelection[2]
+    elif(a==3):
+        a=featureSelection[3]
+    return a
+
 # run_with_ngrok(app)
 app.secret_key="HoshimachiSuiseiUwU"
 
@@ -42,31 +68,8 @@ def feature():
 
     featureSelection = ['Variance', 'Skewness', 'Curtosis', 'Entropy']
 
-    def feaSel(a):
-        if(a==0):
-            a=featureSelection[0]
-        elif(a==1):
-            a=featureSelection[1]
-        elif(a==2):
-            a=featureSelection[2]
-        elif(a==3):
-            a=featureSelection[3]
-        return a
-
     if ((not f1=='') and (not f2=='')):
-        wcss=[]
-        X= dataset.iloc[:, [int(f1),int(f2)]].values
-        for i in range(1,10):
-            kmeans = KMeans(n_clusters= i, init='k-means++', random_state=42)
-            kmeans.fit(X)
-            wcss.append(kmeans.inertia_)
-
-        plt.plot(range(1,10), wcss)
-        plt.title('The Elbow Method')
-        plt.xlabel('no of clusters')
-        plt.ylabel('wcss')
-        plt.savefig('./static/assets/elbow.jpg')
-        plt.clf()
+        elbowvis(f1,f2)
         a=feaSel(int(f1))
         b=feaSel(int(f2))
         return render_template("index.html", outputfeature=f"F1: {a} \t F2: {b}")
