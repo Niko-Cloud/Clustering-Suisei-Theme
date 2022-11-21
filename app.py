@@ -23,11 +23,11 @@ toastr = Toastr(app)
 @app.route("/index", methods=["GET", "POST"])
 def index():
 
-    if os.path.exists("../static/assets/vis.jpg"):
-        os.remove("../static/assets/vis.jpg")
+    if os.path.exists("./static/assets/vis.jpg"):
+        os.remove("./static/assets/vis.jpg")
 
-    if os.path.exists("../static/assets/elbow.jpg"):
-        os.remove("../static/assets/elbow.jpg")
+    if os.path.exists("./static/assets/elbow.jpg"):
+        os.remove("./static/assets/elbow.jpg")
 
     return render_template("index.html")
 
@@ -91,7 +91,7 @@ def plot():
         plt.xlabel(colname[int(f1)])
         plt.ylabel(colname[int(f2)])
         plt.legend()
-        plt.savefig('../static/assets/vis.jpg')
+        plt.savefig('./static/assets/vis.jpg')
         plt.clf()
         return render_template("index.html")
     else:
