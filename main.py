@@ -34,16 +34,16 @@ def feature():
     session['f1'] = request.form.get("feature1")
     session['f2'] = request.form.get("feature2")
 
-    int(f1) = request.form.get("feature1")
-    int(f2) = request.form.get("feature2")
+    f1 = request.form.get("feature1")
+    f2 = request.form.get("feature2")
 
     if (f1==-1 or f2==-1):
         flash("Hoshimachi Suisei aren't features")
         return render_template("index.html", outputfeature=f"No Feature Choosen")
 
-    elbowVis(f1,f2)
-    a = feaSel(f1)
-    b = feaSel(f2)
+    elbowVis(int(f1),int(f2))
+    a = feaSel(int(f1))
+    b = feaSel(int(f2))
     return render_template("index.html", outputfeature=f"F1: {a} \t F2: {b}")
 
 @app.route('/plot',methods=["GET",'POST'])
