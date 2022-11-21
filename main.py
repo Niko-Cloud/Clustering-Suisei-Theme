@@ -47,17 +47,17 @@ def feature():
         return render_template("index.html", outputfeature=f"No Feature Choosen")
 
 
-# @app.route('/plot',methods=["GET",'POST'])
-# def plot():
-#     f1 = session.get('f1', None)
-#     f2 = session.get('f2', None)
-#     k = request.form.get("kvalue")
-#     if ((not f1=='') and (not f2=='')):
-#         plotVis(f1,f2,k)
-#         return render_template("index.html")
-#     else:
-#         flash("No New Features Selected")
-#         return render_template("index.html")
+@app.route('/plot',methods=["GET",'POST'])
+def plot():
+    f1 = session.get('f1', None)
+    f2 = session.get('f2', None)
+    k = request.form.get("kvalue")
+    if ((not f1=='') and (not f2=='')):
+        plotVis(f1,f2,k)
+        return render_template("index.html")
+    else:
+        flash("No New Features Selected")
+        return render_template("index.html")
 
 if __name__ == '__main__':
 	app.run(debug=True)
