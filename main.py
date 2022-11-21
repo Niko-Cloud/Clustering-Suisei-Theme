@@ -37,27 +37,26 @@ def feature():
     f1 = int(request.form.get("feature1"))
     f2 = int(request.form.get("feature2"))
 
-    if ((not f1==-1) and (not f2==-1)):
-        elbowVis(f1,f2)
-        a = feaSel(f1)
-        b = feaSel(f2)
-        return render_template("index.html", outputfeature=f"F1: {a} \t F2: {b}")
-    else:
+    if (f1==-1 or f2==-1):
         flash("Hoshimachi Suisei aren't features")
         return render_template("index.html", outputfeature=f"No Feature Choosen")
 
+    elbowVis(f1,f2)
+    a = feaSel(f1)
+    b = feaSel(f2)
+    return render_template("index.html", outputfeature=f"F1: {a} \t F2: {b}")
 
 @app.route('/plot',methods=["GET",'POST'])
 def plot():
     f1 = session.get('f1', None)
     f2 = session.get('f2', None)
     k = request.form.get("kvalue")
-    if ((not f1=='') and (not f2=='')):
-        plotVis(f1,f2,k)
-        return render_template("index.html")
-    else:
+    if (f1==-1 or f2==-1):
         flash("No New Features Selected")
         return render_template("index.html")
+
+    plotVis(f1,f2,k)
+    return render_template("index.html")
 
 if __name__ == '__main__':
 	app.run(debug=True)
