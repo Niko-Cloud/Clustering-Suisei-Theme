@@ -4,7 +4,7 @@ from flask import Flask, render_template, request, flash, session
 import sklearn
 from app.elbow import elbowVis, feaSel
 from app.dataset import read_csv
-# from app.plot import plotVis
+from app.plot import plotVis
 dataset = read_csv
 
 from flask_toastr import Toastr
