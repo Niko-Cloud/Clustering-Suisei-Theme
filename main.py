@@ -4,7 +4,7 @@ from flask import Flask, render_template, request, flash, session
 import sklearn
 from app.elbow import elbowVis, feaSel
 from app.dataset import read_csv
-
+from app.plot import plotVis
 dataset = read_csv
 
 from flask_toastr import Toastr
@@ -15,8 +15,6 @@ app = Flask(__name__)
 
 # run_with_ngrok(app)
 app.secret_key="HoshimachiSuiseiUwU"
-
-clr = ['red','yellow','blue','green','pink','cyan','magenta','orange','black','purple']
 
 toastr = Toastr(app)
 
@@ -56,19 +54,7 @@ def plot():
     f2 = session.get('f2', None)
     k = request.form.get("kvalue")
     if ((not f1=='') and (not f2=='')):
-        X= dataset.iloc[:, [int(f1),int(f2)]].values
-        kmeansmodel = KMeans(n_clusters= int(k), init='k-means++', random_state=0)
-        y_kmeans= kmeansmodel.fit_predict(X)
-        colname = list(dataset.columns)
-        for i in range(int(k)):
-          plt.scatter(X[y_kmeans == i, 0], X[y_kmeans == i, 1], s = 30, c = clr[i], label = f'Cluster {i+1}')
-
-        plt.title('Clusters IRIS')
-        plt.xlabel(colname[int(f1)])
-        plt.ylabel(colname[int(f2)])
-        plt.legend()
-        plt.savefig('./static/assets/vis.jpg')
-        plt.clf()
+        plotVis(f1,f2,k)
         return render_template("index.html")
     else:
         flash("No New Features Selected")
